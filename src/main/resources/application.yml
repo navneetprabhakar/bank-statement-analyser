@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: bank-statement-analyser
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bsa_db
+    username: bsa_user
+    password: bsa_password
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: gemini-1.5-flash
+
+bsa:
+  storage:
+    upload-dir: ./uploads
+  security:
+    jwt-secret: ${JWT_SECRET:supersecretkeythatshouldbechangedinproduction}
+    jwt-expiration-ms: 86400000
+
+logging:
+  level:
+    root: INFO
+    com.yourco.bsa: DEBUG
